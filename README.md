@@ -1,4 +1,4 @@
-# Film Kimi
+# Film HUB
 
 ## Secure API key (TMDb)
 
