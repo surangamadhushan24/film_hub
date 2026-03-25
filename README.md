@@ -8,12 +8,6 @@
    - `API_KEY=your-real-api-key`
 3. Make sure `.gitignore` contains `.env` (already configured) so your secret is not committed.
 
-## In this project
 
-- `script.js` currently uses `app.API_KEY` placeholder. For proper workflow with a build tool use environment variable injection.
 
-## Git
 
-- `git init`
-- `git add .`
-- `git commit -m "Add secure API key handling and git ignore"`
