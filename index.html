@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilmHub - Discover Amazing Movies</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo" onclick="app.goHome()">
+            <i class="fas fa-film"></i>
+            FilmHub
+        </a>
+        
+        <ul class="nav-links">
+            <li><a href="#" onclick="app.goHome()">Home</a></li>
+            <li><a href="#movies">Movies</a></li>
+            <li><a href="#tv">TV Shows</a></li>
+            <li><a href="#trending">Trending</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <div class="search-container" id="searchContainer">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search movies..." autocomplete="off">
+                <button class="search-btn" onclick="app.toggleSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <button class="theme-toggle" onclick="app.toggleTheme()">
+                <i class="fas fa-sun" id="themeIcon"></i>
+            </button>
+            <button class="mobile-menu-btn" onclick="app.toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="overlay" id="overlay" onclick="app.toggleMobileMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="nav-links">
+            <li><a href="#" onclick="app.goHome(); app.toggleMobileMenu()">Home</a></li>
+            <li><a href="#movies" onclick="app.toggleMobileMenu()">Movies</a></li>
+            <li><a href="#tv" onclick="app.toggleMobileMenu()">TV Shows</a></li>
+            <li><a href="#trending" onclick="app.toggleMobileMenu()">Trending</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <h1 class="hero-title" id="heroTitle">Loading...</h1>
+                <div class="hero-meta">
+                    <span class="hero-rating" id="heroRating"><i class="fas fa-star"></i> --</span>
+                    <span id="heroYear">----</span>
+                    <span id="heroGenre">---</span>
+                </div>
+                <p class="hero-description" id="heroOverview">
+                    Discover the best movies and TV shows. Browse our collection of trending, popular, and top-rated content.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="app.playFeatured()">
+                        <i class="fas fa-play"></i> Watch Now
+                    </button>
+                    <button class="btn btn-secondary" onclick="app.showDetails(app.featuredMovie?.id)">
+                        <i class="fas fa-info-circle"></i> More Info
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trending Section -->
+        <section class="section" id="trending">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-fire" style="color: var(--primary);"></i>
+                    Trending Now
+                </h2>
+                <a href="#" class="explore-all" onclick="app.viewAll('trending')">
+                    View All <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            <div class="movie-slider">
+                <button class="slider-btn prev" onclick="app.slide('trending', -1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="slider-container" id="trendingContainer">
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                </div>
+                <button class="slider-btn next" onclick="app.slide('trending', 1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Popular Section -->
+        <section class="section" id="popular">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-line" style="color: var(--primary);"></i>
+                    Popular Movies
+                </h2>
+                <a href="#" class="explore-all" onclick="app.viewAll('popular')">
+                    View All <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            <div class="movie-slider">
+                <button class="slider-btn prev" onclick="app.slide('popular', -1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="slider-container" id="popularContainer">
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                </div>
+                <button class="slider-btn next" onclick="app.slide('popular', 1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Top Rated Section -->
+        <section class="section" id="topRated">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-award" style="color: var(--primary);"></i>
+                    Top Rated
+                </h2>
+                <a href="#" class="explore-all" onclick="app.viewAll('top_rated')">
+                    View All <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            <div class="movie-slider">
+                <button class="slider-btn prev" onclick="app.slide('topRated', -1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="slider-container" id="topRatedContainer">
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                </div>
+                <button class="slider-btn next" onclick="app.slide('topRated', 1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Upcoming Section -->
+        <section class="section" id="upcoming">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-calendar-alt" style="color: var(--primary);"></i>
+                    Coming Soon
+                </h2>
+                <a href="#" class="explore-all" onclick="app.viewAll('upcoming')">
+                    View All <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            <div class="movie-slider">
+                <button class="slider-btn prev" onclick="app.slide('upcoming', -1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="slider-container" id="upcomingContainer">
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                </div>
+                <button class="slider-btn next" onclick="app.slide('upcoming', 1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Search Results View -->
+    <div class="search-results hidden" id="searchResults">
+        <div class="search-header">
+            <h2>Search Results for "<span id="searchQuery"></span>"</h2>
+            <p id="searchCount">Found 0 movies</p>
+        </div>
+        <div class="movies-grid" id="searchGrid"></div>
+        <div class="no-results hidden" id="noResults">
+            <i class="fas fa-film"></i>
+            <h3>No movies found</h3>
+            <p>Try adjusting your search terms</p>
+        </div>
+    </div>
+
+    <!-- Movie Details Modal -->
+    <div class="modal-overlay" id="movieModal" onclick="app.closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="app.closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-hero" id="modalHero"></div>
+            <div class="modal-body">
+                <img src="" alt="" class="modal-poster" id="modalPoster">
+                <h2 class="modal-title" id="modalTitle">Movie Title</h2>
+                <div class="modal-meta">
+                    <span><i class="fas fa-star" style="color: #ffd700;"></i> <span id="modalRating">0.0</span></span>
+                    <span><i class="fas fa-calendar"></i> <span id="modalDate">----</span></span>
+                    <span><i class="fas fa-clock"></i> <span id="modalRuntime">-- min</span></span>
+                    <span><i class="fas fa-film"></i> <span id="modalGenre">---</span></span>
+                </div>
+                <p class="modal-overview" id="modalOverview">Description...</p>
+                <div class="modal-actions">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-play"></i> Watch Trailer
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> My List
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>FilmHub</h3>
+                <p>Your ultimate destination for movie discovery. Browse trending, popular, and classic films all in one place.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#" onclick="app.goHome()">Home</a><br>
+                <a href="#movies">Movies</a><br>
+                <a href="#tv">TV Shows</a><br>
+                <a href="#trending">Trending</a>
+            </div>
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <a href="#" onclick="app.searchByGenre(28)">Action</a><br>
+                <a href="#" onclick="app.searchByGenre(35)">Comedy</a><br>
+                <a href="#" onclick="app.searchByGenre(27)">Horror</a><br>
+                <a href="#" onclick="app.searchByGenre(878)">Sci-Fi</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> support@filmhub.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Cinema Street, Movie City</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 FilmHub. All rights reserved. Data provided by TMDb.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
