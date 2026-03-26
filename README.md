@@ -1,6 +1,6 @@
 # Film HUB
 
-## Secure API key (TMDb)
+## Secure API key 
 
 1. Create `.env` from `.env.example`:
    - `cp .env.example .env` (Windows: copy .env.example .env)
